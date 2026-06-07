@@ -147,63 +147,6 @@ function Column({ reviews, direction }: { reviews: Review[]; direction: "up" | "
   );
 }
 
-function RatingRing() {
-  const r = 88;
-  const c = 2 * Math.PI * r;
-  const segments = 60;
-  const filledRatio = 0.98;
-  return (
-    <div className="relative mx-auto mt-8 h-56 w-56">
-      {/* outer glow */}
-      <div className="pointer-events-none absolute inset-[-12px] rounded-full bg-[hsl(var(--kc-gold))]/15 blur-3xl animate-kc-pulse-glow" />
-
-      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
-        {/* segmented track */}
-        <circle
-          cx="100" cy="100" r={r}
-          fill="none"
-          stroke="rgba(255,255,255,0.08)"
-          strokeWidth="2"
-          strokeDasharray={`${(c / segments) * 0.55} ${(c / segments) * 0.45}`}
-        />
-      </svg>
-
-      {/* progress arc - animated */}
-      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
-        <defs>
-          <linearGradient id="kc-arc" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--kc-gold-soft))" />
-            <stop offset="100%" stopColor="hsl(var(--kc-gold))" />
-          </linearGradient>
-        </defs>
-        <circle
-          cx="100" cy="100" r={r}
-          fill="none"
-          stroke="url(#kc-arc)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          strokeDashoffset={c * (1 - filledRatio)}
-          className="animate-kc-dash"
-          style={{ filter: "drop-shadow(0 0 6px rgba(200,165,106,0.55))" }}
-        />
-      </svg>
-
-      {/* rotating highlight dot */}
-      <div className="absolute inset-0 animate-kc-ring" style={{ animation: "kc-pulse-glow 4s ease-in-out infinite" }}>
-        <svg viewBox="0 0 200 200" className="h-full w-full -rotate-90">
-          <circle cx="100" cy="12" r="3" fill="hsl(var(--kc-gold-soft))" style={{ filter: "drop-shadow(0 0 6px rgba(200,165,106,0.9))" }} />
-        </svg>
-      </div>
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="font-serif text-7xl font-light tracking-tight text-white">4.9</div>
-        <div className="mt-1 text-[10px] uppercase tracking-[0.3em] text-white/40">van 5.0</div>
-        <div className="mt-3"><Stars size={12} /></div>
-      </div>
-    </div>
-  );
-}
 
 function CenterShowcase() {
   return (
