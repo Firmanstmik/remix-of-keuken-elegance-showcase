@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Calendar, ChevronRight, Sparkles } from "lucide-react";
+import { Calendar, ArrowRight2, MagicStar, Shield, Clock } from "iconsax-react";
 
 const SHOWCASE_IMAGES = [
   { src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=75", label: "LEICHT Keuken", tag: "Greeploos" },
@@ -75,8 +75,8 @@ function HorizontalSlider() {
         style={{ background: "linear-gradient(to left, #FAF7F1 0%, rgba(250,247,241,0.85) 35%, rgba(250,247,241,0) 100%)" }}
       />
 
-      <div className="absolute left-2 top-2 z-20 inline-flex items-center gap-2 rounded-full border border-[#E6DFD2] bg-white/90 px-3 py-1.5 backdrop-blur">
-        <Sparkles className="h-3 w-3" style={{ color: "#8a6a2a" }} />
+      <div className="absolute left-2 top-2 z-20 inline-flex items-center gap-2 rounded-full border border-[#E2D9C7] bg-white/90 px-3 py-1.5 backdrop-blur">
+        <MagicStar size={12} variant="Bold" color="#8a6a2a" />
         <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#5a4418" }}>
           Showroom Selectie
         </span>
@@ -156,7 +156,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 const inputCls =
-  "w-full rounded-2xl border border-[#E6DFD2] bg-white px-4 py-3 text-sm text-[#2a2113] placeholder-[#a8987a] outline-none transition-all duration-200 focus:border-[#b8924a] focus:shadow-[0_0_0_4px_rgba(184,146,74,0.10)]";
+  "w-full rounded-lg border border-[#D9D2C3] bg-white px-4 py-3 text-sm text-[#1f1a12] placeholder-[#9c9180] outline-none transition-all duration-200 focus:border-[#1a1410] focus:shadow-[0_0_0_3px_rgba(26,20,16,0.06)]";
 
 function ConsultationForm() {
   const [form, setForm] = useState<FormState>(initial);
@@ -166,85 +166,113 @@ function ConsultationForm() {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="relative overflow-hidden rounded-[32px] border border-[#E6DFD2] bg-white p-8 md:p-10"
+      className="relative overflow-hidden rounded-[20px] border border-[#E4DCCB] bg-white"
       style={{
-        boxShadow: "0 50px 120px -40px rgba(60,45,20,0.22), 0 0 0 1px rgba(184,146,74,0.08) inset",
+        boxShadow: "0 40px 90px -50px rgba(26,20,16,0.30), 0 1px 0 rgba(255,255,255,0.6) inset",
       }}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#b8924a]/40 to-transparent" />
-      <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, rgba(200,165,106,0.30), transparent 70%)" }} />
-
-      <div className="relative flex items-center gap-3">
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-xl"
-          style={{ background: "#F5ECD8", border: "1px solid rgba(184,146,74,0.30)" }}
-        >
-          <Calendar className="h-4 w-4" style={{ color: "#8a6a2a" }} />
-        </div>
-        <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#8a6a2a" }}>
-            Persoonlijk Ontwerpgesprek
-          </div>
-          <div className="text-[12px]" style={{ color: "#7a6a4a" }}>Vrijblijvend · binnen 24 uur reactie</div>
-        </div>
-      </div>
-
-      <div className="relative mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Field label="Volledige naam">
-          <input className={inputCls} placeholder="Uw volledige naam" value={form.naam} onChange={(e) => update("naam", e.target.value)} />
-        </Field>
-        <Field label="E-mailadres">
-          <input type="email" className={inputCls} placeholder="naam@voorbeeld.nl" value={form.email} onChange={(e) => update("email", e.target.value)} />
-        </Field>
-        <Field label="Telefoonnummer">
-          <input className={inputCls} placeholder="+31 …" value={form.telefoon} onChange={(e) => update("telefoon", e.target.value)} />
-        </Field>
-        <Field label="Showroom voorkeur">
-          <select className={inputCls} value={form.showroom} onChange={(e) => update("showroom", e.target.value)}>
-            <option>Utrecht</option>
-            <option>Online videoconsult</option>
-            <option>Op locatie (architect)</option>
-          </select>
-        </Field>
-        <Field label="Budget indicatie">
-          <select className={inputCls} value={form.budget} onChange={(e) => update("budget", e.target.value)}>
-            <option>€ 15.000 – € 25.000</option>
-            <option>€ 25.000 – € 50.000</option>
-            <option>€ 50.000 – € 100.000</option>
-            <option>€ 100.000+</option>
-          </select>
-        </Field>
-        <Field label="Datum voorkeur">
-          <input type="date" className={inputCls} value={form.datum} onChange={(e) => update("datum", e.target.value)} />
-        </Field>
-        <div className="md:col-span-2">
-          <Field label="Uw bericht">
-            <textarea
-              rows={4}
-              className={inputCls + " resize-none"}
-              placeholder="Vertel ons kort over uw project, ruimte en stijlvoorkeur…"
-              value={form.bericht}
-              onChange={(e) => update("bericht", e.target.value)}
-            />
-          </Field>
-        </div>
-      </div>
-
-      <div className="relative mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[11px] leading-relaxed" style={{ color: "#7a6a4a" }}>
-          Binnen 24 uur ontvangt u persoonlijk antwoord van een senior ontwerpadviseur.
-        </p>
-        <button
-          type="submit"
-          className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition-all duration-[250ms] hover:scale-[1.03]"
+      {/* Two-column premium layout */}
+      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr]">
+        {/* Left: editorial intro panel */}
+        <aside
+          className="relative hidden flex-col justify-between p-8 md:flex"
           style={{
-            background: "linear-gradient(180deg, #6BC56C, #4FA351)",
-            boxShadow: "0 16px 36px -10px rgba(89,177,90,0.50), 0 0 0 1px rgba(255,255,255,0.18) inset",
+            background: "linear-gradient(180deg, #1a1410 0%, #221b14 100%)",
           }}
         >
-          Verstuur aanvraag
-          <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-        </button>
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1">
+              <span className="h-1 w-1 rounded-full" style={{ background: "#C9A961" }} />
+              <span className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/75">
+                Atelier
+              </span>
+            </div>
+            <h3 className="mt-5 font-serif text-2xl font-light leading-tight text-white">
+              Persoonlijk
+              <br />
+              <span className="italic" style={{ color: "#C9A961" }}>ontwerpgesprek</span>
+            </h3>
+            <p className="mt-3 text-[12px] leading-relaxed text-white/55">
+              Een vertrouwelijk gesprek met een senior ontwerper. Zonder verkoopdruk.
+            </p>
+          </div>
+
+          <ul className="mt-8 space-y-3 text-[12px] text-white/70">
+            <li className="flex items-center gap-2.5">
+              <Clock size={14} variant="Linear" color="#C9A961" />
+              Reactie binnen 24 uur
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Shield size={14} variant="Linear" color="#C9A961" />
+              Vrijblijvend & vertrouwelijk
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Calendar size={14} variant="Linear" color="#C9A961" />
+              Op locatie of in showroom
+            </li>
+          </ul>
+        </aside>
+
+        {/* Right: form fields */}
+        <div className="p-7 md:p-9">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Field label="Volledige naam">
+              <input className={inputCls} placeholder="Uw volledige naam" value={form.naam} onChange={(e) => update("naam", e.target.value)} />
+            </Field>
+            <Field label="E-mailadres">
+              <input type="email" className={inputCls} placeholder="naam@voorbeeld.nl" value={form.email} onChange={(e) => update("email", e.target.value)} />
+            </Field>
+            <Field label="Telefoonnummer">
+              <input className={inputCls} placeholder="+31 …" value={form.telefoon} onChange={(e) => update("telefoon", e.target.value)} />
+            </Field>
+            <Field label="Showroom voorkeur">
+              <select className={inputCls} value={form.showroom} onChange={(e) => update("showroom", e.target.value)}>
+                <option>Utrecht</option>
+                <option>Online videoconsult</option>
+                <option>Op locatie (architect)</option>
+              </select>
+            </Field>
+            <Field label="Budget indicatie">
+              <select className={inputCls} value={form.budget} onChange={(e) => update("budget", e.target.value)}>
+                <option>€ 15.000 – € 25.000</option>
+                <option>€ 25.000 – € 50.000</option>
+                <option>€ 50.000 – € 100.000</option>
+                <option>€ 100.000+</option>
+              </select>
+            </Field>
+            <Field label="Datum voorkeur">
+              <input type="date" className={inputCls} value={form.datum} onChange={(e) => update("datum", e.target.value)} />
+            </Field>
+            <div className="md:col-span-2">
+              <Field label="Uw bericht">
+                <textarea
+                  rows={4}
+                  className={inputCls + " resize-none"}
+                  placeholder="Vertel ons kort over uw project, ruimte en stijlvoorkeur…"
+                  value={form.bericht}
+                  onChange={(e) => update("bericht", e.target.value)}
+                />
+              </Field>
+            </div>
+          </div>
+
+          <div className="mt-7 flex flex-col items-stretch gap-3 border-t border-[#EFE8D9] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11px] leading-relaxed" style={{ color: "#7a6a4a" }}>
+              Door te verzenden gaat u akkoord met ons vertrouwelijkheidsbeleid.
+            </p>
+            <button
+              type="submit"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium tracking-wide text-white transition-all duration-[250ms] hover:bg-[#0f0a06]"
+              style={{
+                background: "#1a1410",
+                boxShadow: "0 12px 28px -14px rgba(26,20,16,0.55)",
+              }}
+            >
+              Aanvraag versturen
+              <ArrowRight2 size={14} variant="Linear" className="transition-transform duration-300 group-hover:translate-x-0.5" />
+            </button>
+          </div>
+        </div>
       </div>
     </form>
   );
