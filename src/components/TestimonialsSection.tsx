@@ -1,15 +1,14 @@
 import { useState } from "react";
+import { Star, Quote } from "lucide-react";
 import {
-  Star,
-  Quote,
-  BadgeCheck,
+  TickCircle,
   Calendar,
-  Phone,
-  MessageCircle,
-  Settings2,
-  MapPin,
-  X,
-} from "lucide-react";
+  Call,
+  Messages2,
+  Setting2,
+  Location,
+  CloseSquare,
+} from "iconsax-react";
 
 type Review = {
   initials: string;
@@ -109,12 +108,12 @@ function TestimonialCard({ r }: { r: Review }) {
           <div>
             <div className="text-[13px] font-medium text-white">{r.name}</div>
             <div className="flex items-center gap-1 text-[11px] text-white/50">
-              <MapPin className="h-3 w-3" />
+              <Location size={12} variant="Linear" />
               {r.location}
             </div>
           </div>
         </div>
-        <BadgeCheck className="h-5 w-5 text-[hsl(var(--kc-green))]" />
+        <TickCircle size={20} variant="Bold" className="text-[hsl(var(--kc-green))]" />
       </div>
     </article>
   );
@@ -122,20 +121,23 @@ function TestimonialCard({ r }: { r: Review }) {
 
 function Column({ reviews, direction }: { reviews: Review[]; direction: "up" | "down" }) {
   const doubled = [...reviews, ...reviews];
+  // Solid color behind cards = exact match for fades (no gradient mismatch)
+  const COL_BG = "#0F0F0F";
   return (
-    <div className="relative h-[760px] overflow-hidden">
+    <div
+      className="relative h-[760px] overflow-hidden"
+      style={{ backgroundColor: COL_BG }}
+    >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-56"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-64"
         style={{
-          background:
-            "linear-gradient(to bottom, #0D0D0D 0%, rgba(13,13,13,0.85) 35%, rgba(13,13,13,0.5) 65%, rgba(13,13,13,0) 100%)",
+          background: `linear-gradient(to bottom, ${COL_BG} 0%, ${COL_BG} 18%, rgba(15,15,15,0) 100%)`,
         }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-56"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-64"
         style={{
-          background:
-            "linear-gradient(to top, #0D0D0D 0%, rgba(13,13,13,0.85) 35%, rgba(13,13,13,0.5) 65%, rgba(13,13,13,0) 100%)",
+          background: `linear-gradient(to top, ${COL_BG} 0%, ${COL_BG} 18%, rgba(15,15,15,0) 100%)`,
         }}
       />
       <div className={direction === "up" ? "animate-kc-scroll-up" : "animate-kc-scroll-down"}>
@@ -323,9 +325,9 @@ function FloatingActionBar() {
   if (!open) return null;
 
   const ghostActions = [
-    { icon: Phone, label: "Bel adviseur", sub: "030 200 5500" },
-    { icon: MessageCircle, label: "WhatsApp", sub: "Snel antwoord" },
-    { icon: Settings2, label: "Configurator", sub: "Ontwerp je keuken" },
+    { Icon: Call, label: "Bel adviseur", sub: "030 200 5500" },
+    { Icon: Messages2, label: "WhatsApp", sub: "Snel antwoord" },
+    { Icon: Setting2, label: "Configurator", sub: "Ontwerp je keuken" },
   ];
 
   return (
@@ -339,16 +341,14 @@ function FloatingActionBar() {
             "0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,165,106,0.08) inset, 0 1px 0 rgba(255,255,255,0.05) inset",
         }}
       >
-        {/* close button */}
         <button
           onClick={() => setOpen(false)}
           aria-label="Sluit balk"
           className="group absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-[#111] backdrop-blur transition-all duration-300 hover:rotate-90 hover:border-[hsl(var(--kc-gold))]/60 hover:shadow-[0_0_18px_rgba(200,165,106,0.55)]"
         >
-          <X className="h-3.5 w-3.5 text-white/70 transition-colors group-hover:text-[hsl(var(--kc-gold))]" />
+          <CloseSquare size={14} variant="Linear" className="text-white/70 transition-colors group-hover:text-[hsl(var(--kc-gold))]" />
         </button>
 
-        {/* logo */}
         <div className="hidden items-center gap-2 px-3 sm:flex">
           <div
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10"
@@ -365,7 +365,6 @@ function FloatingActionBar() {
         </div>
         <div className="hidden h-9 w-px bg-white/10 sm:block" />
 
-        {/* primary green */}
         <button
           className="group flex items-center gap-2.5 rounded-[18px] px-3 py-2 transition-transform duration-[250ms] hover:scale-[1.03]"
           style={{
@@ -375,7 +374,7 @@ function FloatingActionBar() {
           }}
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
-            <Calendar className="h-4 w-4 text-white" />
+            <Calendar size={16} variant="Linear" className="text-white" />
           </div>
           <div className="hidden text-left md:block">
             <div className="text-[12px] font-semibold leading-tight text-white">
@@ -386,14 +385,14 @@ function FloatingActionBar() {
         </button>
 
         {ghostActions.map((a) => {
-          const Icon = a.icon;
+          const Icon = a.Icon;
           return (
             <button
               key={a.label}
               className="group flex items-center gap-2.5 rounded-[18px] border border-white/[0.06] bg-white/[0.03] px-3 py-2 transition-all duration-[250ms] hover:scale-[1.03] hover:border-[hsl(var(--kc-gold))]/30 hover:bg-white/[0.06]"
             >
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.06] text-[hsl(var(--kc-gold))] transition-colors group-hover:bg-[hsl(var(--kc-gold))]/15">
-                <Icon className="h-4 w-4" />
+                <Icon size={16} variant="Linear" />
               </div>
               <div className="hidden text-left md:block">
                 <div className="text-[12px] font-medium leading-tight text-white">{a.label}</div>
