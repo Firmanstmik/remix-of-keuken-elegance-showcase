@@ -125,12 +125,18 @@ function Column({ reviews, direction }: { reviews: Review[]; direction: "up" | "
   return (
     <div className="relative h-[760px] overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32"
-        style={{ background: "linear-gradient(to bottom, #0D0D0D, rgba(13,13,13,0))" }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-56"
+        style={{
+          background:
+            "linear-gradient(to bottom, #0D0D0D 0%, rgba(13,13,13,0.85) 35%, rgba(13,13,13,0.5) 65%, rgba(13,13,13,0) 100%)",
+        }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32"
-        style={{ background: "linear-gradient(to top, #0D0D0D, rgba(13,13,13,0))" }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-56"
+        style={{
+          background:
+            "linear-gradient(to top, #0D0D0D 0%, rgba(13,13,13,0.85) 35%, rgba(13,13,13,0.5) 65%, rgba(13,13,13,0) 100%)",
+        }}
       />
       <div className={direction === "up" ? "animate-kc-scroll-up" : "animate-kc-scroll-down"}>
         {doubled.map((r, i) => (
