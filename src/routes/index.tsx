@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import ConsultationSection from "@/components/ConsultationSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,8 +16,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen pb-32" style={{ backgroundColor: "#F7F4EF" }}>
+    <main className="min-h-screen pb-32" style={{ backgroundColor: "#0D0D0D" }}>
       <TestimonialsSection />
+      <ConsultationSection />
     </main>
   );
 }
