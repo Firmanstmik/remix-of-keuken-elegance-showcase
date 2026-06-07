@@ -208,53 +208,45 @@ function RatingRing() {
 function CenterShowcase() {
   return (
     <div className="relative mx-auto w-full max-w-[400px]">
-      {/* gold reflections */}
+      {/* soft gold halo */}
       <div
-        className="pointer-events-none absolute -inset-16 -z-10 rounded-[60px] opacity-70 blur-3xl animate-kc-pulse-glow"
-        style={{ background: "radial-gradient(60% 60% at 50% 40%, rgba(200,165,106,0.35), transparent 70%)" }}
-      />
-      <div
-        className="pointer-events-none absolute -inset-24 -z-10 rounded-[80px] opacity-40 blur-3xl"
-        style={{ background: "radial-gradient(50% 50% at 50% 60%, rgba(200,165,106,0.18), transparent 70%)" }}
+        className="pointer-events-none absolute -inset-20 -z-10 rounded-[60px] opacity-60 blur-3xl"
+        style={{ background: "radial-gradient(55% 55% at 50% 45%, rgba(200,165,106,0.30), transparent 70%)" }}
       />
 
       <div className="animate-kc-float">
         <div
-          className="relative overflow-hidden rounded-[32px] border border-white/[0.08] p-8"
+          className="relative overflow-hidden rounded-[32px] p-8"
           style={{
             background:
-              "linear-gradient(160deg, #1a1a1a 0%, #131313 45%, #0c0c0c 100%)",
+              "linear-gradient(165deg, #F5ECD8 0%, #E9DCBE 55%, #DCC89B 100%)",
             boxShadow:
-              "0 50px 120px -30px rgba(0,0,0,0.8), 0 0 0 1px rgba(200,165,106,0.08) inset, 0 1px 0 rgba(255,255,255,0.06) inset",
+              "0 50px 120px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(120,90,40,0.18) inset, 0 1px 0 rgba(255,255,255,0.6) inset",
           }}
         >
-          {/* glass reflection */}
+          {/* subtle top sheen */}
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-44 opacity-[0.10]"
-            style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.95), transparent)" }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-50"
+            style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.8), transparent)" }}
           />
-          {/* moving gold highlight */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div
-              className="absolute -top-1/2 left-0 h-[200%] w-1/3 animate-kc-shimmer"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(200,165,106,0.18), transparent)",
-              }}
-            />
-          </div>
-          <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[hsl(var(--kc-gold))]/15 blur-2xl" />
 
           <div className="relative flex justify-center">
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--kc-gold))] shadow-[0_0_8px_rgba(200,165,106,0.8)]" />
-              <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/70">
+            <div
+              className="flex items-center gap-2 rounded-full px-3 py-1.5"
+              style={{
+                background: "rgba(255,255,255,0.55)",
+                border: "1px solid rgba(120,90,40,0.18)",
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#8a6a2a" }} />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#5a4418" }}>
                 Google Reviews · Verified
               </span>
             </div>
           </div>
 
-          <RatingRing />
+          <RatingRingLight />
 
           <div className="relative mt-8 space-y-2.5">
             {[
@@ -264,24 +256,70 @@ function CenterShowcase() {
             ].map((s) => (
               <div
                 key={s.k}
-                className="flex items-center justify-between rounded-2xl border border-white/[0.06] bg-white/[0.025] px-5 py-4 backdrop-blur-sm transition-colors hover:border-[hsl(var(--kc-gold))]/25"
+                className="flex items-center justify-between rounded-2xl px-5 py-4"
+                style={{
+                  background: "rgba(255,255,255,0.45)",
+                  border: "1px solid rgba(120,90,40,0.14)",
+                }}
               >
-                <span className="text-[11px] uppercase tracking-[0.22em] text-white/55">{s.v}</span>
-                <span className="font-serif text-3xl font-light text-white">{s.k}</span>
+                <span className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "#6a5224" }}>{s.v}</span>
+                <span className="font-serif text-3xl font-light" style={{ color: "#2a2113" }}>{s.k}</span>
               </div>
             ))}
           </div>
 
-          <div className="relative mt-6 flex items-center justify-between rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
+          <div
+            className="relative mt-6 flex items-center justify-between rounded-2xl px-4 py-3"
+            style={{
+              background: "rgba(255,255,255,0.6)",
+              border: "1px solid rgba(120,90,40,0.14)",
+            }}
+          >
             <div className="flex items-center gap-2">
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.2.8 3.9 1.5l2.7-2.6C16.9 3.3 14.7 2.3 12 2.3 6.6 2.3 2.3 6.6 2.3 12S6.6 21.7 12 21.7c6.9 0 9.5-4.9 9.5-9.4 0-.6-.1-1.1-.1-1.5H12z" />
               </svg>
-              <span className="text-xs text-white/80">Google Reviews</span>
+              <span className="text-xs font-medium" style={{ color: "#2a2113" }}>Google Reviews</span>
             </div>
             <Stars />
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function RatingRingLight() {
+  const r = 88;
+  const c = 2 * Math.PI * r;
+  const filledRatio = 0.98;
+  return (
+    <div className="relative mx-auto mt-8 h-56 w-56">
+      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
+        <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(120,90,40,0.18)" strokeWidth="2" />
+      </svg>
+      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
+        <defs>
+          <linearGradient id="kc-arc-light" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#b8924a" />
+            <stop offset="100%" stopColor="#8a6a2a" />
+          </linearGradient>
+        </defs>
+        <circle
+          cx="100" cy="100" r={r}
+          fill="none"
+          stroke="url(#kc-arc-light)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - filledRatio)}
+          className="animate-kc-dash"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="font-serif text-7xl font-light tracking-tight" style={{ color: "#2a2113" }}>4.9</div>
+        <div className="mt-1 text-[10px] uppercase tracking-[0.3em]" style={{ color: "#7a5e28" }}>van 5.0</div>
+        <div className="mt-3"><Stars size={12} /></div>
       </div>
     </div>
   );
