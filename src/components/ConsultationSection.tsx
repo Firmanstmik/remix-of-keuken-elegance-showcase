@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Calendar, ChevronRight, Sparkles } from "lucide-react";
 
 const SHOWCASE_IMAGES = [
@@ -14,46 +14,111 @@ const SHOWCASE_IMAGES = [
 
 function HorizontalSlider() {
   const doubled = [...SHOWCASE_IMAGES, ...SHOWCASE_IMAGES];
-  return (
-    <div className="relative overflow-hidden rounded-[28px] border border-[#E6DFD2] bg-white py-8"
-      style={{ boxShadow: "0 30px 80px -40px rgba(60,45,20,0.20)" }}
-    >
-      {/* edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-white to-transparent" />
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const drag = useRef({ startX: 0, startScroll: 0, moved: false });
+  const pausedUntil = useRef(0);
 
-      <div className="absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-[#E6DFD2] bg-white/90 px-3 py-1.5 backdrop-blur">
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let raf = 0;
+    let last = performance.now();
+    const speed = 30; // px/s
+
+    const tick = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      const half = (trackRef.current?.scrollWidth ?? 0) / 2;
+      if (!dragging && now > pausedUntil.current && half > 0) {
+        let next = el.scrollLeft + speed * dt;
+        if (next >= half) next -= half;
+        el.scrollLeft = next;
+      } else if (half > 0) {
+        if (el.scrollLeft >= half) el.scrollLeft -= half;
+        else if (el.scrollLeft < 0) el.scrollLeft += half;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [dragging]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setDragging(true);
+    drag.current = { startX: e.clientX, startScroll: el.scrollLeft, moved: false };
+    el.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragging) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 3) drag.current.moved = true;
+    el.scrollLeft = drag.current.startScroll - dx;
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    setDragging(false);
+    pausedUntil.current = performance.now() + 1500;
+    scrollRef.current?.releasePointerCapture?.(e.pointerId);
+  };
+
+  return (
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-40"
+        style={{ background: "linear-gradient(to right, #FAF7F1 0%, rgba(250,247,241,0.85) 35%, rgba(250,247,241,0) 100%)" }}
+      />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-40"
+        style={{ background: "linear-gradient(to left, #FAF7F1 0%, rgba(250,247,241,0.85) 35%, rgba(250,247,241,0) 100%)" }}
+      />
+
+      <div className="absolute left-2 top-2 z-20 inline-flex items-center gap-2 rounded-full border border-[#E6DFD2] bg-white/90 px-3 py-1.5 backdrop-blur">
         <Sparkles className="h-3 w-3" style={{ color: "#8a6a2a" }} />
         <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#5a4418" }}>
           Showroom Selectie
         </span>
       </div>
 
-      <div className="flex animate-kc-scroll-x gap-5 pl-6 pt-12">
-        {doubled.map((img, i) => (
-          <figure
-            key={i}
-            className="group relative h-72 w-[300px] shrink-0 overflow-hidden rounded-2xl border border-[#E6DFD2] transition-all duration-500 hover:-translate-y-1"
-            style={{ boxShadow: "0 20px 40px -20px rgba(60,45,20,0.25)" }}
-          >
-            <img
-              src={img.src}
-              alt={img.label}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-            <figcaption className="absolute inset-x-0 bottom-0 p-4">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-black/40 px-2 py-0.5 backdrop-blur">
-                <span className="h-1 w-1 rounded-full" style={{ background: "#D9BE7C" }} />
-                <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-white/90">
-                  {img.tag}
-                </span>
-              </div>
-              <div className="mt-1.5 font-serif text-[17px] font-light text-white">{img.label}</div>
-            </figcaption>
-          </figure>
-        ))}
+      <div
+        ref={scrollRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        className={`overflow-x-auto pt-14 pb-4 select-none ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-y" }}
+      >
+        <div ref={trackRef} className="flex w-max gap-6 px-6">
+          {doubled.map((img, i) => (
+            <figure
+              key={i}
+              className="group relative h-80 w-[320px] shrink-0 overflow-hidden rounded-[24px]"
+              style={{ boxShadow: "0 30px 60px -30px rgba(60,45,20,0.35)" }}
+              onClickCapture={(e) => { if (drag.current.moved) { e.preventDefault(); e.stopPropagation(); } }}
+            >
+              <img
+                src={img.src}
+                alt={img.label}
+                draggable={false}
+                loading="lazy"
+                className="pointer-events-none h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-black/35 px-2 py-0.5 backdrop-blur">
+                  <span className="h-1 w-1 rounded-full" style={{ background: "#D9BE7C" }} />
+                  <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-white/90">
+                    {img.tag}
+                  </span>
+                </div>
+                <div className="mt-1.5 font-serif text-[18px] font-light text-white">{img.label}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </div>
   );
