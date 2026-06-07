@@ -389,24 +389,6 @@ export default function TestimonialsSection() {
             "radial-gradient(80% 50% at 50% 0%, rgba(255,255,255,0.04), transparent 70%)",
         }}
       />
-      {/* architectural grid */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-          backgroundSize: "100px 100px",
-        }}
-      />
-      {/* fine grain dot pattern */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.18]"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
       {/* center gold glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl"
