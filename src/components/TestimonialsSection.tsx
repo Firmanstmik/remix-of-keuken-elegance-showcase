@@ -151,80 +151,128 @@ function Column({ reviews, direction }: { reviews: Review[]; direction: "up" | "
 function CenterShowcase() {
   return (
     <div className="relative mx-auto w-full max-w-[400px]">
-      {/* soft gold halo */}
+      {/* soft halo behind */}
       <div
-        className="pointer-events-none absolute -inset-20 -z-10 rounded-[60px] opacity-60 blur-3xl"
-        style={{ background: "radial-gradient(55% 55% at 50% 45%, rgba(200,165,106,0.30), transparent 70%)" }}
+        className="pointer-events-none absolute -inset-24 -z-10 rounded-[60px] opacity-70 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(50% 45% at 50% 30%, rgba(40,70,140,0.45), transparent 70%), radial-gradient(45% 45% at 50% 75%, rgba(200,165,106,0.30), transparent 70%)",
+        }}
       />
 
       <div className="animate-kc-float">
+        {/* gold gradient border wrapper */}
         <div
-          className="relative overflow-hidden rounded-[32px] p-8"
+          className="relative rounded-[34px] p-[1.5px]"
           style={{
             background:
-              "linear-gradient(165deg, #F5ECD8 0%, #E9DCBE 55%, #DCC89B 100%)",
+              "linear-gradient(160deg, rgba(220,190,130,0.9) 0%, rgba(180,140,70,0.3) 35%, rgba(255,255,255,0.6) 65%, rgba(180,140,70,0.7) 100%)",
             boxShadow:
-              "0 50px 120px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(120,90,40,0.18) inset, 0 1px 0 rgba(255,255,255,0.6) inset",
+              "0 60px 140px -30px rgba(8,18,40,0.75), 0 30px 60px -20px rgba(0,0,0,0.4)",
           }}
         >
-          {/* subtle top sheen */}
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-50"
-            style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.8), transparent)" }}
-          />
-
-          <div className="relative flex justify-center">
-            <div
-              className="flex items-center gap-2 rounded-full px-3 py-1.5"
-              style={{
-                background: "rgba(255,255,255,0.55)",
-                border: "1px solid rgba(120,90,40,0.18)",
-                backdropFilter: "blur(6px)",
-              }}
-            >
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#8a6a2a" }} />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#5a4418" }}>
-                Google Reviews · Verified
-              </span>
-            </div>
-          </div>
-
-          <RatingRingLight />
-
-          <div className="relative mt-8 space-y-2.5">
-            {[
-              { k: "150+", v: "Beoordelingen" },
-              { k: "45+", v: "Jaar Vakmanschap" },
-              { k: "98%", v: "Aanbevolen" },
-            ].map((s) => (
-              <div
-                key={s.k}
-                className="flex items-center justify-between rounded-2xl px-5 py-4"
-                style={{
-                  background: "rgba(255,255,255,0.45)",
-                  border: "1px solid rgba(120,90,40,0.14)",
-                }}
-              >
-                <span className="text-[11px] uppercase tracking-[0.22em]" style={{ color: "#6a5224" }}>{s.v}</span>
-                <span className="font-serif text-3xl font-light" style={{ color: "#2a2113" }}>{s.k}</span>
-              </div>
-            ))}
-          </div>
-
-          <div
-            className="relative mt-6 flex items-center justify-between rounded-2xl px-4 py-3"
+            className="relative overflow-hidden rounded-[33px]"
             style={{
-              background: "rgba(255,255,255,0.6)",
-              border: "1px solid rgba(120,90,40,0.14)",
+              background:
+                "linear-gradient(180deg, #0B1B3A 0%, #0D2148 48%, #FFFFFF 48.2%, #F7F2E8 100%)",
             }}
           >
-            <div className="flex items-center gap-2">
-              <svg className="h-4 w-4" viewBox="0 0 24 24">
-                <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.2.8 3.9 1.5l2.7-2.6C16.9 3.3 14.7 2.3 12 2.3 6.6 2.3 2.3 6.6 2.3 12S6.6 21.7 12 21.7c6.9 0 9.5-4.9 9.5-9.4 0-.6-.1-1.1-.1-1.5H12z" />
-              </svg>
-              <span className="text-xs font-medium" style={{ color: "#2a2113" }}>Google Reviews</span>
+            {/* TOP — dark blue half */}
+            <div className="relative px-8 pt-8 pb-10">
+              {/* subtle starlight */}
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(70% 60% at 50% 0%, rgba(255,255,255,0.10), transparent 70%)",
+                }}
+              />
+              <div className="relative flex justify-center">
+                <div
+                  className="flex items-center gap-2 rounded-full px-3 py-1.5"
+                  style={{
+                    background: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(220,190,130,0.35)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#DCBE82" }} />
+                  <span
+                    className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: "#E8D6A8" }}
+                  >
+                    Google Reviews · Verified
+                  </span>
+                </div>
+              </div>
+
+              <RatingRingDark />
             </div>
-            <Stars />
+
+            {/* gold seam */}
+            <div
+              className="pointer-events-none relative h-px"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(184,146,74,0.7), transparent)",
+              }}
+            />
+
+            {/* BOTTOM — white half */}
+            <div className="relative px-8 pt-7 pb-8">
+              <div className="space-y-2.5">
+                {[
+                  { k: "150+", v: "Beoordelingen" },
+                  { k: "45+", v: "Jaar Vakmanschap" },
+                  { k: "98%", v: "Aanbevolen" },
+                ].map((s) => (
+                  <div
+                    key={s.k}
+                    className="flex items-center justify-between rounded-2xl px-5 py-4"
+                    style={{
+                      background: "rgba(247,242,232,0.7)",
+                      border: "1px solid rgba(184,146,74,0.18)",
+                    }}
+                  >
+                    <span
+                      className="text-[11px] uppercase tracking-[0.22em]"
+                      style={{ color: "#6a5224" }}
+                    >
+                      {s.v}
+                    </span>
+                    <span
+                      className="font-serif text-3xl font-light"
+                      style={{ color: "#0B1B3A" }}
+                    >
+                      {s.k}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="mt-5 flex items-center justify-between rounded-2xl px-4 py-3"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid rgba(184,146,74,0.20)",
+                  boxShadow: "0 8px 20px -10px rgba(11,27,58,0.15)",
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="h-4 w-4" viewBox="0 0 24 24">
+                    <path
+                      fill="#EA4335"
+                      d="M12 10.2v3.9h5.5c-.2 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.2.8 3.9 1.5l2.7-2.6C16.9 3.3 14.7 2.3 12 2.3 6.6 2.3 2.3 6.6 2.3 12S6.6 21.7 12 21.7c6.9 0 9.5-4.9 9.5-9.4 0-.6-.1-1.1-.1-1.5H12z"
+                    />
+                  </svg>
+                  <span className="text-xs font-medium" style={{ color: "#0B1B3A" }}>
+                    Google Reviews
+                  </span>
+                </div>
+                <Stars />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -232,26 +280,26 @@ function CenterShowcase() {
   );
 }
 
-function RatingRingLight() {
+function RatingRingDark() {
   const r = 88;
   const c = 2 * Math.PI * r;
   const filledRatio = 0.98;
   return (
-    <div className="relative mx-auto mt-8 h-56 w-56">
+    <div className="relative mx-auto mt-7 h-56 w-56">
       <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
-        <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(120,90,40,0.18)" strokeWidth="2" />
+        <circle cx="100" cy="100" r={r} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
       </svg>
       <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full -rotate-90">
         <defs>
-          <linearGradient id="kc-arc-light" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#b8924a" />
-            <stop offset="100%" stopColor="#8a6a2a" />
+          <linearGradient id="kc-arc-dark" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#F1DDA6" />
+            <stop offset="100%" stopColor="#B8924A" />
           </linearGradient>
         </defs>
         <circle
           cx="100" cy="100" r={r}
           fill="none"
-          stroke="url(#kc-arc-light)"
+          stroke="url(#kc-arc-dark)"
           strokeWidth="3"
           strokeLinecap="round"
           strokeDasharray={c}
@@ -260,8 +308,10 @@ function RatingRingLight() {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="font-serif text-7xl font-light tracking-tight" style={{ color: "#2a2113" }}>4.9</div>
-        <div className="mt-1 text-[10px] uppercase tracking-[0.3em]" style={{ color: "#7a5e28" }}>van 5.0</div>
+        <div className="font-serif text-7xl font-light tracking-tight text-white">4.9</div>
+        <div className="mt-1 text-[10px] uppercase tracking-[0.3em]" style={{ color: "#DCBE82" }}>
+          van 5.0
+        </div>
         <div className="mt-3"><Stars size={12} /></div>
       </div>
     </div>
