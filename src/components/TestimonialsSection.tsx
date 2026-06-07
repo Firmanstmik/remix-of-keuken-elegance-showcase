@@ -126,7 +126,6 @@ function Column({ reviews, direction }: { reviews: Review[]; direction: "up" | "
   return (
     <div
       className="relative h-[760px] overflow-hidden"
-      style={{ backgroundColor: COL_BG }}
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-64"
@@ -408,38 +407,13 @@ function FloatingActionBar() {
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: "#0D0D0D" }}>
-      {/* layered base gradient */}
+    <section className="relative overflow-hidden" style={{ backgroundColor: "#0F0F0F" }}>
+      {/* center gold glow only — keep base color uniform so fades blend perfectly */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-25 blur-3xl"
         style={{
-          background:
-            "linear-gradient(180deg, #0D0D0D 0%, #111111 40%, #161616 70%, #0D0D0D 100%)",
+          background: "radial-gradient(circle, rgba(200,165,106,0.28), transparent 60%)",
         }}
-      />
-      {/* vertical spotlight */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(80% 50% at 50% 0%, rgba(255,255,255,0.04), transparent 70%)",
-        }}
-      />
-      {/* center gold glow */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl"
-        style={{
-          background: "radial-gradient(circle, rgba(200,165,106,0.30), transparent 60%)",
-        }}
-      />
-      {/* side spotlights */}
-      <div
-        className="pointer-events-none absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)" }}
-      />
-      <div
-        className="pointer-events-none absolute -right-40 bottom-1/4 h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(200,165,106,0.10), transparent 70%)" }}
       />
 
       <div className="relative mx-auto max-w-7xl px-6 py-28">
